@@ -13,7 +13,7 @@ class Category(models.Model):
 
     name = models.CharField(verbose_name="Имя", max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
-    image = models.ImageField(verbose_name="Изображение", upload_to=CATEGORIES_IMAGE_LOCATION)
+    image = models.ImageField(verbose_name="Изображение", upload_to=CATEGORIES_IMAGE_LOCATION, null=True, blank=False)
 
     def absolute_url(self):
         return reverse("product_list_of_category", args=[self.slug])

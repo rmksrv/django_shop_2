@@ -10,9 +10,10 @@ def product_list(request, category_slug: Optional[str] = None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     context = {
-        "products": [p.name for p in products],
+        "products": products,
     }
-    return HttpResponse(str(context))
+    # return HttpResponse(str(context))
+    return render(request, "test_product_list.html", context)
 
 
 def product_details(request, product_slug: str):
@@ -20,5 +21,6 @@ def product_details(request, product_slug: str):
     context = {
         "product": product,
     }
-    return HttpResponse(str(context))
+    # return HttpResponse(str(context))
+    return render(request, "test_product_details.html", context)
 

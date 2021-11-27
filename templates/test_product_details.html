@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% with product as p %}
+        <h1>{{ p.name }}</h1>
+        <hr>
+        <p><i>{{ p.preview_description }}</i></p>
+        <p>{{ p.description }}</p>
+    {% endwith %}
+</body>
+</html>
