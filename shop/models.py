@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from shop.constants import PRODUCT_IMAGE_LOCATION
 
@@ -12,6 +13,9 @@ class Category(models.Model):
 
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
+
+    def absolute_url(self):
+        return reverse("product_list_of_category", args=[self.slug])
 
     def __str__(self):
         return f"Category(name={self.name})"
@@ -35,6 +39,9 @@ class Product(models.Model):
     available = models.BooleanField(verbose_name="Товар доступен", default=True)
     created_at = models.DateTimeField(verbose_name="Создан", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Последнее обновление", auto_now=True)
+
+    def absolute_url(self):
+        return reverse("product_details", args=[self.slug])
 
     def __str__(self):
         return f"Product(category={self.category};name={self.name};price={self.price};stock={self.stock})"
