@@ -1,11 +1,10 @@
 from django.db import models
 from django.urls import reverse
 
-from shop.constants import PRODUCT_IMAGE_LOCATION, CATEGORIES_IMAGE_LOCATION
+from shop.constants import CATEGORIES_IMAGE_LOCATION, PRODUCT_IMAGE_LOCATION
 
 
 class Category(models.Model):
-
     class Meta:
         ordering = ("name",)
         verbose_name = "Категория"
@@ -13,7 +12,12 @@ class Category(models.Model):
 
     name = models.CharField(verbose_name="Имя", max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
-    image = models.ImageField(verbose_name="Изображение", upload_to=CATEGORIES_IMAGE_LOCATION, null=True, blank=False)
+    image = models.ImageField(
+        verbose_name="Изображение",
+        upload_to=CATEGORIES_IMAGE_LOCATION,
+        null=True,
+        blank=False,
+    )
 
     def absolute_url(self):
         return reverse("product_list_of_category", args=[self.slug])
@@ -23,14 +27,21 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-
     class Meta:
-        ordering = ("updated_at", "name",)
+        ordering = (
+            "updated_at",
+            "name",
+        )
         index_together = (("id", "slug"),)
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
 
-    category = models.ForeignKey(Category, verbose_name="Категория", related_name="products", on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category,
+        verbose_name="Категория",
+        related_name="products",
+        on_delete=models.CASCADE,
+    )
     name = models.CharField(verbose_name="Наименование", max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     image = models.ImageField(verbose_name="Изображение", upload_to=PRODUCT_IMAGE_LOCATION, blank=True)
