@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from shop.constants import PRODUCT_IMAGE_LOCATION
+from shop.constants import PRODUCT_IMAGE_LOCATION, CATEGORIES_IMAGE_LOCATION
 
 
 class Category(models.Model):
@@ -11,8 +11,9 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
-    name = models.CharField(max_length=200, db_index=True)
+    name = models.CharField(verbose_name="Имя", max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    image = models.ImageField(verbose_name="Изображение", upload_to=CATEGORIES_IMAGE_LOCATION)
 
     def absolute_url(self):
         return reverse("product_list_of_category", args=[self.slug])
@@ -33,6 +34,7 @@ class Product(models.Model):
     name = models.CharField(verbose_name="Наименование", max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     image = models.ImageField(verbose_name="Изображение", upload_to=PRODUCT_IMAGE_LOCATION, blank=True)
+    preview_description = models.CharField(verbose_name="Краткое описание", max_length=255, blank=True)
     description = models.TextField(verbose_name="Описание", blank=True)
     price = models.DecimalField(verbose_name="Цена", max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(verbose_name="Доступное для продажи количество")
