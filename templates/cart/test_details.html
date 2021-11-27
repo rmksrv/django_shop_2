@@ -5,8 +5,36 @@
     <title>Title</title>
 </head>
 <body>
-    {% for item in cart %}
-        <p>{{ item }}</p>
-    {% endfor %}
+{#        {% for item in cart %}#}
+{#        {% endfor %}#}
+    <h1>Корзина</h1>
+    <table>
+        <thead><tr>
+            <th>Изображение</th>
+            <th>Товар</th>
+            <th>Количество</th>
+            <th>Удалить</th>
+            <th>Цена</th>
+            <th>Стоимость</th>
+        </tr></thead>
+        <tbody>
+        {% for item in cart %}
+            {% with p=item.product %}
+                <tr>
+                    <td>
+                        <a href="{% url 'product_details' p.slug %}">
+                            <img src="{{ p.image.url }}">
+                        </a>
+                    </td>
+                    <td>{{ p.name }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td><a href="{% url 'cart_remove' p.id %}">Удалить</a></td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ item.total_price }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
