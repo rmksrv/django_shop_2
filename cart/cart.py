@@ -37,10 +37,7 @@ class Cart:
         self.session.modified = True
 
     def total_price(self):
-        return sum(
-            Decimal(item["qty"] * item["price"])
-            for item in self.cart.values()
-        )
+        return sum(Decimal(item["qty"] * item["price"]) for item in self.cart.values())
 
     def __iter__(self):
         product_ids = self.cart.keys()
@@ -51,7 +48,7 @@ class Cart:
 
         for item in self.cart.values():
             item["price"] = Decimal(item["price"])
-            item['total_price'] = item['price'] * item['qty']
+            item["total_price"] = item["price"] * item["qty"]
             yield item
 
     def __len__(self):
