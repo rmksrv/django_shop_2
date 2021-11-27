@@ -14,7 +14,7 @@ def product_list(request: HttpRequest, category_slug: Optional[str] = None):
     context = {
         "products": products,
     }
-    return render(request, "test_product_list.html", context)
+    return render(request, "shop/test_product_list.html", context)
 
 
 def product_details(request: HttpRequest, product_slug: str):
@@ -22,4 +22,4 @@ def product_details(request: HttpRequest, product_slug: str):
     context = {
         "product": product,
     }
-    return render(request, "test_product_details.html", context)
+    return render(request, "shop/test_product_details.html", context)

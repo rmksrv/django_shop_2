@@ -10,7 +10,12 @@
             <li>
                 <a href="{% url 'product_list_of_category' product.category.slug %}">{{ product.category.name }}</a> :
                 <a href="{% url 'product_details' product.slug %}">{{ product.name }}</a> :
-                {{ product.price }} : {{ product.stock }} : {{ product.preview_description }}</li>
+                {{ product.price }} : {{ product.stock }} : {{ product.preview_description }}
+                <form action="{% url 'cart_add' product.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="В корзину">
+                </form>
+            </li>
         {% endfor %}
     </ul>
 
