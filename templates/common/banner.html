@@ -4,8 +4,10 @@
 {# - banner_header_text: str #}
 {# - banner_content_html_text: str #}
 {# - banner_with_button: bool #}
+{# - banner_with_csrf: bool #}
 {# - banner_button_text: str #}
 {# - banner_button_href: str #}
+{# - banner_button_request_method: str ["get", "post"] #}
 <section id="banner" class="major" style="background-image: url({{ banner_image_url }})">
     <div class="inner">
         <header class="major">
@@ -14,8 +16,16 @@
         <div class="content">
             <p>{{ banner_content_html_text|safe|escape }}</p>
             {% if banner_with_button == True %}
+                <br>
                 <ul class="actions">
-                    <li><a href="{{ banner_button_href }}" class="button next scrolly">{{ banner_button_text }}</a></li>
+                    <li>
+                        <form method="{{ banner_button_request_method }}" action="{{ banner_button_href }}">
+                            <button type="submit" name="{{ banner_button_href }}" value="{{ banner_button_href }}" class="button">
+                                {% if banner_with_csrf %}{% csrf_token %}{% endif %}
+                                {{ banner_button_text }}
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             {% endif %}
         </div>

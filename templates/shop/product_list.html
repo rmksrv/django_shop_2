@@ -10,11 +10,6 @@
 
             <article style="background-image: url({{ product.image.url }});">
 
-                <form method="post" action="{% url 'cart_add' product.id %}">
-                    {% csrf_token %}
-                    <input type="submit" value="В корзину">
-                </form>
-
                 <span class="image" style="display: none;">
                     <img src="{{ product.image.url }}" alt="">
                 </span>

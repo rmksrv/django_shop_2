@@ -2,12 +2,14 @@
 {# params: #}
 {# - header_title_left: str #}
 {# - header_title_right: str #}
+{# - cart_length: int #}
 <header id="header" class="reveal alt">
     <a href="{% url 'index' %}" class="logo">
         <strong>{{ header_title_left }}</strong>
         <span>{{ header_title_right }}</span>
     </a>
     <nav>
-        <a href="#menu">Меню</a>
+        <a class="icon solid fa-shopping-cart" href="{% url 'cart_details' %}">Корзина</a>
+        <a class="icon solid fa-shopping-cart" href="#menu">Меню</a>
     </nav>
 </header>

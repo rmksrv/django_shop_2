@@ -1,0 +1,55 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+    <div class="inner">
+
+        <header class="major">
+            <h1>Корзина</h1>
+        </header>
+
+        {% if cart|length > 0 %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Стоимость</th>
+                        <th>Удалить</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                        {% with p=item.product %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'product_details' p.slug %}">
+                                        {{ p.name }}
+                                    </a>
+                                </td>
+                                <td>{{ item.qty }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.total_price }}</td>
+                                <td><a class="fas fa-minus-circle" href="{% url 'cart_remove' p.id %}"></a></td>
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Итого: </td>
+                        <td></td>
+                        <td></td>
+                        <td><b>{{ cart.total_price }}</b></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        {% else %}
+            <p>В корзине нет товаров</p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

@@ -13,6 +13,7 @@ class BaseContext:
     header_title_left: str = "Интернет магазин"
     header_title_right: str = "Кузьминка"
     menu_categories: List[Category] = Category.objects.all()
+    # TODO: incapsulate links to FaIconSocialNetworks
     footer_social_networks_refs: List[Tuple[FaIconSocialNetworks, str]] = field(
         default_factory=lambda: [
             (FaIconSocialNetworks.VK.value, r"https://vk.com/"),
@@ -29,8 +30,11 @@ class BaseContext:
     banner_header_text: str = "Интернет магазин Кузьминка"
     banner_content_html_text: str = lorem_ipsum.sentence()
     banner_with_button: bool = True
+    banner_with_csrf: bool = True
     banner_button_text: str = "Перейти"
     banner_button_href: str = r"#main_section"
+    banner_button_request_method: str = "get"
+    cart_length: int = 0
 
     def concat_with(self, d: Dict) -> Dict:
         return asdict(self) | d

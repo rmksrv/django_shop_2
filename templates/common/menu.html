@@ -1,6 +1,7 @@
 {# menu.html #}
 {# params: #}
 {# - menu_categories: List[Category] #}
+{# - cart_length: int] #}
 <nav id="menu">
     <div class="inner">
         <ul class="links">
@@ -10,8 +11,11 @@
         </ul>
         <ul class="actions stacked">
             <li><a href="#" class="button fit">О нас</a></li>
-            <li><a href="{% url 'cart_details' %}" class="button primary fit">Корзина</a></li>
+            <li>
+                <a href="{% url 'cart_details' %}" class="button primary fit">
+                    Корзина {% if cart_length > 0 %}({{ cart_length }}){% endif %}
+                </a>
+            </li>
         </ul>
     </div>
-    <a class="close" href="#menu">Close</a>
 </nav>

@@ -2,9 +2,11 @@ from typing import Optional
 
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 
+from cart.cart import Cart
 from .models import Category, Product
-from .utils import BaseContext
+from .base_context import BaseContext
 
 
 def product_list(request: HttpRequest, category_slug: Optional[str] = None):
@@ -12,7 +14,6 @@ def product_list(request: HttpRequest, category_slug: Optional[str] = None):
     page_title = "Товары"
     banner_image_url = BaseContext.banner_image_url
     banner_header_text = BaseContext.banner_header_text
-    banner_content_html_text = BaseContext.banner_content_html_text
 
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
@@ -24,8 +25,11 @@ def product_list(request: HttpRequest, category_slug: Optional[str] = None):
 
     context = BaseContext(
         page_title=page_title,
+        banner_with_button=False,
         banner_image_url=banner_image_url,
         banner_header_text=banner_header_text,
+        banner_button_request_method="post",
+        cart_length=len(Cart(request)),
     ).concat_with(
         {
             "products": products,
@@ -36,5 +40,14 @@ def product_list(request: HttpRequest, category_slug: Optional[str] = None):
 
 def product_details(request: HttpRequest, product_slug: str):
     product = get_object_or_404(Product, slug=product_slug, available=True)
-    context = BaseContext().concat_with({"product": product})
+    context = BaseContext(
+        page_title=product.name,
+        banner_image_url=product.image.url,
+        banner_header_text=product.name,
+        banner_content_html_text=product.preview_description,
+        banner_button_text="В корзину",
+        banner_button_request_method="post",
+        banner_button_href=reverse("cart_add", args=[product.id]),
+        cart_length=len(Cart(request)),
+    ).concat_with({"product": product})
     return render(request, "shop/product_details.html", context)
