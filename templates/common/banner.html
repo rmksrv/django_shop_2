@@ -1,11 +1,12 @@
 {# banner.html #}
 {# params: #}
+{# - banner_image_url: str #}
 {# - banner_header_text: str #}
-{#     Header text of banner #}
-{# - banner_content_html_text:  #}
-{#     Content of banner. HTML tags are working here #}
-{# - banner_with_button: #}
-<section id="banner" class="major" style="">
+{# - banner_content_html_text: str #}
+{# - banner_with_button: bool #}
+{# - banner_button_text: str #}
+{# - banner_button_href: str #}
+<section id="banner" class="major" style="background-image: url({{ banner_image_url }})">
     <div class="inner">
         <header class="major">
             <h1>{{ banner_header_text }}</h1>

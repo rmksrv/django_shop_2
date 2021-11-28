@@ -4,7 +4,7 @@
 <html lang="ru">
 
     <head>
-        <title>{% block head_title %}{% endblock %}</title>
+        <title>{{ page_title }} | Интернет магазин Кузьминка </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
@@ -17,6 +17,7 @@
         <div id="wrapper">
             {% include 'common/header.html' %}
             {% include 'common/menu.html' %}
+            {% block banner %}{% endblock %}
             <div id="main">
                 {% block content %}
                 {% endblock %}

@@ -1,12 +1,15 @@
-from dataclasses import dataclass, asdict, field
+from dataclasses import asdict, dataclass, field
 from typing import Dict, List, Tuple
 
+from django.utils import lorem_ipsum
+
+from .constants import FaIconSocialNetworks, NO_IMAGE_URL
 from .models import Category
-from .constants import FaIconSocialNetworks
 
 
 @dataclass
 class BaseContext:
+    page_title: str = "Главная"
     header_title_left: str = "Интернет магазин"
     header_title_right: str = "Кузьминка"
     menu_categories: List[Category] = Category.objects.all()
@@ -22,7 +25,12 @@ class BaseContext:
     footer_copyright_label: str = "Интернет магазин Кузьминка"
     footer_site_made_by_label: str = "Roman Kosarev"
     footer_site_made_by_href: str = r"https://github.com/rmksrv"
+    banner_image_url: str = NO_IMAGE_URL
+    banner_header_text: str = "Интернет магазин Кузьминка"
+    banner_content_html_text: str = lorem_ipsum.sentence()
+    banner_with_button: bool = True
+    banner_button_text: str = "Перейти"
+    banner_button_href: str = r"#main_section"
 
-
-def with_base_context(d: Dict) -> Dict:
-    return asdict(BaseContext()) | d
+    def concat_with(self, d: Dict) -> Dict:
+        return asdict(self) | d
