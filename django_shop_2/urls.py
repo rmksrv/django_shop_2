@@ -10,4 +10,6 @@ urlpatterns = [
     path("", index_view, name="index"),  # TODO: make as redirect
     path("shop/", include("shop.urls")),
     path("cart/", include("cart.urls")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

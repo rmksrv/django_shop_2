@@ -1,0 +1,22 @@
+{# banner.html #}
+{# params: #}
+{# - banner_header_text: str #}
+{#     Header text of banner #}
+{# - banner_content_html_text:  #}
+{#     Content of banner. HTML tags are working here #}
+{# - banner_with_button: #}
+<section id="banner" class="major" style="">
+    <div class="inner">
+        <header class="major">
+            <h1>{{ banner_header_text }}</h1>
+        </header>
+        <div class="content">
+            <p>{{ banner_content_html_text|safe|escape }}</p>
+            {% if banner_with_button == True %}
+                <ul class="actions">
+                    <li><a href="{{ banner_button_href }}" class="button next scrolly">{{ banner_button_text }}</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</section>
