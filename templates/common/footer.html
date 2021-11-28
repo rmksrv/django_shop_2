@@ -1,14 +1,16 @@
 {# footer.html #}
 {# params: #}
-{# - footer_social_networks_refs: List[Tuple(str, str)] #}
+{# - footer_external_pages: List[ExternalPage] #}
 {# - footer_copyright_label: str #}
 {# - footer_site_made_by_label: str #}
 {# - footer_site_made_by_href: str #}
 <footer id="footer">
     <div class="inner">
         <ul class="icons">
-            {% for fa_icon, link in footer_social_networks_refs %}
-                <li><a href="{{ link }}" class="icon brands alt {{ fa_icon }}"><span class="label"></span></a></li>
+            {% for page in footer_external_pages%}
+                <li><a href="{{ page.link }}" class="icon brands alt {{ page.fa_icon }}"><span class="label">
+                    {{ page.name }}
+                </span></a></li>
             {% endfor %}
         </ul>
         <ul class="copyright">
